@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import Link from "next/link";
 import BootstrapClient from "./components/BoostrapClient";
 import LinkClient from "./components/LinkClient";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -48,18 +48,18 @@ export default function RootLayout({
               </div>
             </nav>
             <article>
-              <a href="/">
+              <Link href="/">
                 <img
                   src="/logo tenco store.png"
                   alt=""
                   style={{ height: "25px", maxHeight: "35px" }}
                 />
-              </a>
+              </Link>
             </article>
             <div>
-              <a className="text-decoration-none" href="/login">
+              <Link className="text-decoration-none" href="/login">
                 <i className="bi bi-person-circle text-dark fs-2"></i>
-              </a>
+              </Link>
             </div>
           </section>
         </header>
