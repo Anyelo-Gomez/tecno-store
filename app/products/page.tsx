@@ -9,15 +9,15 @@ const getData = async (
   let res;
 
   if (price && !type) {
-    res = await fetch(`http://localhost:4000/products?price_lte=${price}`);
+    res = await fetch(`${process.env.DB_HOST}/products?price_lte=${price}`);
   } else if (type && !price) {
-    res = await fetch(`http://localhost:4000/products?type=${type}`);
+    res = await fetch(`${process.env.DB_HOST}/products?type=${type}`);
   } else if (price && type) {
     res = await fetch(
-      `http://localhost:4000/products?price_lte=${price}&type=${type}`
+      `${process.env.DB_HOST}/products?price_lte=${price}&type=${type}`
     );
   } else {
-    res = await fetch(`http://localhost:4000/products`);
+    res = await fetch(`${process.env.DB_HOST}/products`);
   }
 
   return res.json();

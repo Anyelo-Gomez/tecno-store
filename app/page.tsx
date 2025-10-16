@@ -4,11 +4,11 @@ import Link from "next/link";
 import CardNews from "./components/CardNews";
 
 async function getNews() {
-  const response = await fetch("http://localhost:4000/noticias");
+  const response = await fetch(`${process.env.DB_HOST}/noticias`);
   return response.json();
 }
 async function getProd() {
-  const response = await fetch("http://localhost:4000/products");
+  const response = await fetch(`${process.env.DB_HOST}/products`);
   return response.json();
 }
 

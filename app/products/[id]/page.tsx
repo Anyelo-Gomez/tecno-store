@@ -2,7 +2,7 @@ import Button from "@/app/components/Button";
 import Link from "next/link";
 
 const getdatos = async (id: number) => {
-  const res = await fetch(`http://localhost:4000/products/${id}`);
+  const res = await fetch(`${process.env.DB_HOST}/products/${id}`);
   return res.json();
 };
 
