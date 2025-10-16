@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import Link from "next/link";
+import BootstrapClient from "./components/BoostrapClient";
+import LinkClient from "./components/LinkClient";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,8 +18,60 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="body">
+        <header className="container-fluid">
+          <section className="container SpaceBetween">
+            <nav className="navbar navbar-expand-md">
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className="collapse navbar-collapse" id="navbarNav">
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <LinkClient route={"/"} name="HOME"></LinkClient>
+                  </li>
+                  <li className="nav-item">
+                    <LinkClient
+                      route={"/products"}
+                      name="PRODUCTS"
+                    ></LinkClient>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <article>
+              <a href="/">
+                <img
+                  src="/logo tenco store.png"
+                  alt=""
+                  style={{ height: "25px", maxHeight: "35px" }}
+                />
+              </a>
+            </article>
+            <div>
+              <a className="text-decoration-none" href="/login">
+                <i className="bi bi-person-circle text-dark fs-2"></i>
+              </a>
+            </div>
+          </section>
+        </header>
+        {<BootstrapClient />}
         {children}
+
+        <footer
+          className="py-5 mt-5 text-center"
+          style={{ borderTop: "1px solid white" }}
+        >
+          <p className="text-light"> All rights reserved @copyrights</p>
+        </footer>
       </body>
     </html>
   );

@@ -1,42 +1,75 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  height: 100%;
+  margin: 0px;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.body {
+  background: #000000;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 13%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
+.whiteDecoration {
+  color: white;
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+li a:hover {
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
+.SpaceBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fixed {
+  position: fixed;
+  z-index: 1000;
+}
+
+.textPortads {
+  font-size: 60px;
+  color: white;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  height: 20px;
+  background-color: #0d6efd; /* color de la barra */
+  border-radius: 10px;
+  border: 2px solid #e9ecef; /* borde visual */
+}
+
+.BoxShadow {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.502);
+}
+
+.a:hover {
+  transform: scale(1.1);
+  font-weight: bold;
+}
+
+.TextShadow {
+  text-shadow: 1px 1px 2px black;
+}
+
+.portadaAnimation {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: aparecer 2s ease-out forwards;
+}
+
+@keyframes aparecer {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

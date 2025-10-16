@@ -1,95 +1,118 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Card, { ColumnCard } from "./components/Card";
+import Button from "./components/Button";
+import Link from "next/link";
+import CardNews from "./components/CardNews";
 
-export default function Home() {
+async function getNews() {
+  const response = await fetch("http://localhost:4000/noticias");
+  return response.json();
+}
+async function getProd() {
+  const response = await fetch("http://localhost:4000/products");
+  return response.json();
+}
+
+type PropsNews = {
+  id: number;
+  title: string;
+  image: string;
+  price: string;
+};
+
+export default async function Home() {
+  const genNews = async () => {
+    const datos = await getNews();
+    return datos.map((item: PropsNews, index: number) => (
+      <ColumnCard key={index}>
+        {
+          <CardNews
+            key={index}
+            title={item.title}
+            image={item.image}
+            classImg="w-100 object-fit-cover py-0 "
+          />
+        }
+      </ColumnCard>
+    ));
+  };
+
+  const genProducts = async () => {
+    const datos = await getProd();
+    let lista = [];
+    for (let index = 0; index < 4; index++) {
+      lista.push(
+        <ColumnCard key={datos[index].id}>
+          {
+            <Card
+              title={datos[index].title}
+              image={datos[index].image}
+              text={datos[index].price}
+              key={datos[index].id}
+              classImg="object-fit-contain"
+            >
+              {<Button name="Buy Now" href={`products/${datos[index].id}`} />}
+            </Card>
+          }
+        </ColumnCard>
+      );
+    }
+    return lista;
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+    <main className="-fluid my-5">
+      {/* portada */}
+      <section
+        className=" container-fluid boderBig d-flex  justify-content-center mb-5 portadaAnimation"
+        style={{ marginTop: "150px" }}
+      >
+        <article
+          className="row container "
+          style={{ borderBottom: "2px solid black" }}
+        >
+          <div className="col-12 col-md-6 d-flex flex-column justify-content-center align-items-center">
+            <h2 className="textPortads TextShadow">
+              THE BEST <br /> THERE IS
+            </h2>
+            <p className="fs-5 text-light">RTX 5090 FOUNDERS EDITION</p>
+          </div>
+          <div className="col-12 col-md-6 pb-5 d-flex align-items-center">
+            <img
+              className="w-100 object-fit-cover"
+              src="rtx 5090  founders edition.png"
+              alt=""
+              style={{ maxWidth: "600px" }}
             />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
+          </div>
+        </article>
+      </section>
+
+      <section className="container text-center">
+        <article className="mb-5">
+          <h3 className="text-light text-decoration-underline TextShadow">
+            PRODUCTOS
+          </h3>
+        </article>
+        <article className="container text-end mb-3">
+          <Link
+            href={"products"}
+            className="text-decoration-none text-light fs-5 me-3 a TextShadow"
           >
-            Read our docs
-          </a>
+            ver mas <i className="bi bi-arrow-right-short"></i>
+          </Link>
+        </article>
+        <article className="row g-3 d-flex justify-content-center">
+          {genProducts()}
+        </article>
+      </section>
+
+      {/* noticias */}
+      <section className="container mt-5">
+        <div className="text-center text-light">
+          <h3 className="TextShadow">NOTICIAS</h3>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div className="row d-flex justify-content-center">{genNews()}</div>
+      </section>
+    </main>
   );
 }
