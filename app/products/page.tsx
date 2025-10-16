@@ -23,6 +23,13 @@ const getData = async (
   return res.json();
 };
 
+type PropsDatos = {
+  title: string;
+  image: string;
+  id: number;
+  price: string;
+};
+
 export default async function Products({
   searchParams,
 }: {
@@ -32,7 +39,7 @@ export default async function Products({
   const datos = await getData(params.price, params.type);
 
   const gendatos = () => {
-    return datos.map((item: any) => (
+    return datos.map((item: PropsDatos) => (
       <ColumnCard key={item.id}>
         {
           <Card

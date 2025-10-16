@@ -38,7 +38,7 @@ export default async function Home() {
 
   const genProducts = async () => {
     const datos = await getProd();
-    let lista = [];
+    const lista = [];
     for (let index = 0; index < 4; index++) {
       lista.push(
         <ColumnCard key={datos[index].id}>
